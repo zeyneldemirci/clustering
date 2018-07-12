@@ -10,11 +10,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public abstract class AbstractCriteriaTest {
-  protected static final int INITIAL_MIN_CLUSTER_SIZE = 2;
+  static final int TEST_CLUSTER_SIZE = 3;
 
-  protected final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-  protected final PrintStream originalOut = System.out;
-  protected Config config;
+  final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+  private final PrintStream originalOut = System.out;
+  Config config;
 
   @Before
   public void setup() {
@@ -23,10 +23,8 @@ public abstract class AbstractCriteriaTest {
 
     //create cluster configuration
     config = new Config();
-    //set cluster size
-    config.setProperty(GroupProperty.INITIAL_MIN_CLUSTER_SIZE.getName(), String.valueOf(INITIAL_MIN_CLUSTER_SIZE));
     //set logging to none for clear view
-    config.setProperty(GroupProperty.LOGGING_TYPE.getName(), "none");
+    config.setProperty(GroupProperty.LOGGING_TYPE.getName(), "jdk");
 
   }
 

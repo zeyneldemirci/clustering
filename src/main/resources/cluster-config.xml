@@ -3,7 +3,6 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <properties>
-        <property name="hazelcast.initial.min.cluster.size">3</property>
         <property name="hazelcast.logging.type">log4j</property>
         <property name="log4j.configurationFile">log4j.properties</property>
     </properties>
