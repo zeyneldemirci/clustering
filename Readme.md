@@ -9,7 +9,7 @@
 - Application uses [project.source.dir]/main/resources/cluster-config.xml file from classpath as a default config file.
 - After building package there will be application jar and dependencies jars under the "lib" folder in the build target folder.
 - Application log files go under the "logs" dir
-- If you want change your cluster-config or log4j.properties file you can put them under the 
+- If you want change your cluster-config.xml or log4j.properties file you can put them under the "./config" folder in the working directory. 
 
 **Acceptance Criterias**
 
