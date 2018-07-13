@@ -1,21 +1,36 @@
 package com.example.labclustering;
 
-import com.hazelcast.config.ClasspathXmlConfig;
-import com.hazelcast.config.Config;
-import com.hazelcast.config.XmlConfigBuilder;
+import com.hazelcast.cluster.ClusterState;
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.IMap;
 
-import java.io.FileNotFoundException;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class App {
-  public static void main(String[] args) {
-    Config config;
-    try {
-      config = new XmlConfigBuilder("./config/cluster-config.xml").build();
-    } catch (FileNotFoundException e) {
-      //ignore set defaults from classpath resource file
-      config = new ClasspathXmlConfig("cluster-config.xml");
-    }
+  private static final String MAP_NAME = "GREETING";
+  private static final String MAP_KEY = "PRINT";
 
-    new WrapperClusterNode(config);
+
+  public static void main(String[] args) throws InterruptedException {
+    HazelcastInstance hazelcastInstance = Hazelcast.newHazelcastInstance();
+
+    SECONDS.sleep(10);
+
+    if (hazelcastInstance.getCluster().getClusterState().equals(ClusterState.ACTIVE)) {
+      IMap<String, Boolean> map = hazelcastInstance.getMap(MAP_NAME);
+      map.lock(MAP_NAME);
+      try {
+        if (map.get(MAP_KEY) == null ||
+                map.get(MAP_KEY).equals(Boolean.FALSE)) {
+
+          System.out.println("We are started!");
+
+          map.put(MAP_KEY, Boolean.TRUE);
+        }
+      } finally {
+        map.unlock(MAP_KEY);
+      }
+    }
   }
 }

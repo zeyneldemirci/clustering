@@ -7,7 +7,6 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.Member;
 
 import java.util.Iterator;
-import java.util.concurrent.locks.Lock;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 

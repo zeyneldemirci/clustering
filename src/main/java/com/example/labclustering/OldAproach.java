@@ -6,7 +6,7 @@ import com.hazelcast.config.XmlConfigBuilder;
 
 import java.io.FileNotFoundException;
 
-public class App {
+public class OldAproach {
   public static void main(String[] args) {
     Config config;
     try {
